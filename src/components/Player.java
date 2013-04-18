@@ -22,10 +22,10 @@ public class Player {
 	}
 	
 	public void playerMovingUp(){
-		
+		playerY -= velocity;
 	}
 	
 	public void playerMovingDown(){
-		
+		playerY += velocity;
 	}
 }

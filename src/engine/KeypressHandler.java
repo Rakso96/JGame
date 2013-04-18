@@ -7,6 +7,8 @@ import components.Player;
 public class KeypressHandler {
 	
 	Player player = new Player();
+	boolean moveUp;
+	boolean moveDown;
 	
 	public KeypressHandler(){
 		
@@ -14,7 +16,8 @@ public class KeypressHandler {
 	
 	//Initialize whats going to be used together with the keyhandler
 	public void initKeyHandler(){
-		
+		moveUp = false;
+		moveDown = false;
 	}
 	
 	//The update methods called often to see if any keys were pressed
@@ -26,21 +29,33 @@ public class KeypressHandler {
 				System.exit(0);
 			}
 			
-			/**
-			 * CURRENTLY U HAVE TO RAPIDLY PRESS KEY_RIGHT TO MOVE I NEED TO FIX IF U HOLD A BUTTON IT KEEPS MOVING
-			 * KEEP IN MIND TO FIX HOLDING 2 BUTTONS TO MOVE AT THE SAME TIME..................
-			 */
-			
-			//else if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)){
-			else if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
+			//If key up was pressed move up to move the player up
+			else if(Keyboard.getEventKey() == Keyboard.KEY_UP) {
 				if(Keyboard.getEventKeyState()){
-					System.out.println("KEY DOWN!");
-					player.playerMovingRight();
+					moveUp = true;
 				}
 				else{
-					System.out.println("KEY RELEASED!");
+					moveUp = false;
+				}
+			}
+			//If key down was pressed move down to move the player down
+			else if(Keyboard.getEventKey() == Keyboard.KEY_DOWN) {
+				if(Keyboard.getEventKeyState()){
+					moveDown = true;
+				}
+				else{
+					moveDown = false;
 				}
 			}
 		}
+		//If the up key is pressed move the player up
+		if(moveUp == true){
+			player.playerMovingUp();
+		}
+		//If the down key is pressed move the player down
+		if(moveDown == true){
+			player.playerMovingDown();
+		}
 	}
+	
 }
