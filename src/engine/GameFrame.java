@@ -8,6 +8,9 @@ import engine.KeypressHandler;
 import gfx.Renderer;
 
 public class GameFrame {
+	//The resolution of the game
+	public static int HEIGHT = 600;
+	public static int WIDTH = 800;
 	
 	//boolean to see if the game should be running
 	boolean running;
@@ -25,7 +28,7 @@ public class GameFrame {
 	//Initializes the game Frame
 	public void initFrame(){
 		try{
-			Display.setDisplayMode(new DisplayMode(800, 600)); //sets the resolution in new DisplayMode(int,int)
+			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT)); //sets the resolution in new DisplayMode(int,int)
 			Display.setTitle("Dodger 2.0"); //Set title for the frame
 			Display.create(); //Initiate the frame
 		}

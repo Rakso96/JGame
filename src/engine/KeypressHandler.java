@@ -7,8 +7,8 @@ import components.Player;
 public class KeypressHandler {
 	
 	Player player = new Player();
-	boolean moveUp;
-	boolean moveDown;
+	boolean moveUp; //Boolean used to see if the up button is being held or not
+	boolean moveDown; //Boolean used to see if the down button is being held or not
 	
 	public KeypressHandler(){
 		
@@ -16,7 +16,8 @@ public class KeypressHandler {
 	
 	//Initialize whats going to be used together with the keyhandler
 	public void initKeyHandler(){
-		moveUp = false;
+		//Initiate variables
+		moveUp = false; 
 		moveDown = false;
 	}
 	
