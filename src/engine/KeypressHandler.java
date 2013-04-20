@@ -2,11 +2,13 @@ package engine;
 
 import org.lwjgl.input.Keyboard;
 
+import components.Ball;
 import components.Player;
 
 public class KeypressHandler {
 	
 	Player player = new Player();
+	Ball ball = new Ball();
 	boolean moveUp; //Boolean used to see if the up button is being held or not
 	boolean moveDown; //Boolean used to see if the down button is being held or not
 	
@@ -57,6 +59,10 @@ public class KeypressHandler {
 		if(moveDown == true){
 			player.playerMovingDown();
 		}
+		
+		
+		//Updates the ball (The velocity etc changes)
+		ball.updateBall();
 	}
 	
 }

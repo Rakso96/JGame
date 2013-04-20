@@ -1,39 +1,47 @@
 package gfx;
 
 import org.lwjgl.opengl.*;
+import org.newdawn.slick.opengl.Texture;
 
+import components.Ball;
 import components.Player;
 
 public class Renderer {
 	
-	//Integers used for player cordinates, Taken from player class by using Static variables
-	int playerX;
-	int playerY;
+	SpriteLoader spriteLoader;
+	Texture player;
+	Texture ball;
+	
+	private String pathPlayer = "res/PaddleTemp.png";
+	private String pathBall = "res/BallTemp.png";
 	
 	public Renderer(){
 		
 	}
 	
 	public void initRenderer(){
-		//Initialize opengl
+		//Initialize OpenGL
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity(); // Resets any previous projection matrices
 		GL11.glOrtho(0, 800, 600, 0, 1, -1);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
+		GL11.glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
+		
+		spriteLoader = new SpriteLoader();
+		player = Player.getSprite(pathPlayer, spriteLoader);
+		ball = Ball.getSprite(pathBall, spriteLoader);
 	}
 	
 	public void update(){
+		//Cleans the screen from previous draws.
 		GL11.glClear( GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT );
 		
-		playerX = Player.playerX;
-		playerY = Player.playerY;
+		//Draws the player to the screen
+		Player.Draw(player);
 		
-		//Draw a square used temporary as the player
-		GL11.glBegin(GL11.GL_QUADS);
-			GL11.glVertex2i(playerX, playerY); //Top left 
-			GL11.glVertex2i(playerX + 50, playerY); // Top right
-			GL11.glVertex2i(playerX + 50, playerY + 50); // bottom right
-			GL11.glVertex2i(playerX, playerY + 50); // bottom left
-		GL11.glEnd();
+		//Draws the ball to the screen
+		Ball.Draw(ball);
 	}
 }
