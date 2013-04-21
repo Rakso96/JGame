@@ -1,0 +1,11 @@
+Advanced ball collisions....
+
+
+Calculate center coordinate of the player and the ball and subtract them
+Set  the balls y velocity equal to the outcome
+This will make realistic bouncing off the paddle, But too sensitive
+
+Create variable to tone down the outcome of center of player subtracted by center of ball.
+float tuner = 0,05; ~ 
+
+BallVelocityY = (Player.getCenter() - ball.getCenter) * tuner;

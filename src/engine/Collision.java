@@ -17,9 +17,9 @@ public class Collision {
 	}
 	
 	//Creates a new Rectangle that will be used to check if a collision happened
-	public void newCollisionRect(int x, int y, int width, int height){
+	public void newCollisionRect(int ballX, int ballY, int width, int height){
 		objectRectangle = new Rectangle();
-		objectRectangle.setBounds(x, y, width, height);
+		objectRectangle.setBounds(ballX, ballY, width, height);
 	}
 	
 	//Checks if the object is colliding with the screen boundaries, Thought is a switch statement is going to be used together with this
