@@ -29,7 +29,7 @@ public class GameFrame {
 	public void initFrame(){
 		try{
 			Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT)); //sets the resolution in new DisplayMode(int,int)
-			Display.setTitle("Dodger 2.0"); //Set title for the frame
+			Display.setTitle("Pong Rebirth"); //Set title for the frame
 			Display.create(); //Initiate the frame
 		}
 		catch(LWJGLException e){

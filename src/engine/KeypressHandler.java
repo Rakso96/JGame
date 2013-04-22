@@ -3,12 +3,14 @@ package engine;
 import org.lwjgl.input.Keyboard;
 
 import components.Ball;
+import components.Enemy;
 import components.Player;
 
 public class KeypressHandler {
 	
 	Player player = new Player();
 	Ball ball = new Ball();
+	Enemy enemy = new Enemy();
 	boolean moveUp; //Boolean used to see if the up button is being held or not
 	boolean moveDown; //Boolean used to see if the down button is being held or not
 	
@@ -54,15 +56,19 @@ public class KeypressHandler {
 		//If the up key is pressed move the player up
 		if(moveUp == true){
 			player.playerMovingUp();
+			enemy.enemyMovingUp(); /////////////////////////////////////////////////
 		}
 		//If the down key is pressed move the player down
 		if(moveDown == true){
 			player.playerMovingDown();
+			enemy.enemyMovingDown();//////////////////////////////////////////////////
 		}
 		
 		
 		//Updates the ball (The velocity etc changes)
 		ball.updateBall();
+		//Updates the enemy with the balls position so he knows where to go
+		enemy.update(ball.getX(), ball.getY());
 	}
 	
 }

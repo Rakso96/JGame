@@ -46,6 +46,8 @@ public class Ball {
 		switch(coll.checkBoundariesCollision()){
 		case 1: 
 			//The Enemy scored a point (AI enemy)
+			//TEMP CODE///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			reverseX();
 			break;
 		
 		case 2: 
@@ -76,7 +78,7 @@ public class Ball {
 	public void checkPaddleCollision(Rectangle rect){
 		
 		//Checks if the ball did collide with the players paddle
-		rect = Player.getplayerCollisionRect();
+		rect = Player.getPlayerCollisionRect();
 		if(coll.checkCollision(rect) == true){
 			reverseX(); //Reverses the X velocity
 			
@@ -84,8 +86,14 @@ public class Ball {
 			velocityYTemp = ((getCenter() - Player.getCenter()) * velReducer);
 		}
 		
-		//Checks if the ball did collide with the enemies paddle CODE NEEDS TO BE IMPLEMENTED UNDER THIS COMMENT
-		
+		//Checks if the ball did collide with the enemies paddle
+		rect = Enemy.getEnemyCollisionRect();
+		if(coll.checkCollision(rect) == true){
+			reverseX(); //Reverses the X velocity
+			
+			//Emulates the effect of ball moving up if it hits above the center of the paddle vice versa
+			velocityYTemp = ((getCenter() - Player.getCenter()) * velReducer);
+		}
 		
 		if(velocityYTemp < MINVELY){ //If the velocity Y is less than the minimum set it to the minimum
 			velocityYTemp = MINVELY;

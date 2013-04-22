@@ -54,10 +54,6 @@ public class Player {
 		coll.update(playerX, playerY);
 	}
 	
-	public static Rectangle getplayerCollisionRect(){
-		return coll.getRect();
-	}
-	
 	public static void Draw(Texture player){
 		//Binds the player texture
 		player.bind();
@@ -101,4 +97,9 @@ public class Player {
 		playerCenter = playerY + playerHeight / 2;
 		return playerCenter;
 	}
+	
+	public static Rectangle getPlayerCollisionRect(){
+		return coll.getRect();
+	}
+	
 }

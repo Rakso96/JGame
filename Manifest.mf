@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Main-Class: jGame.Main
+Class-Path: lib/jars/asm-debug-all.jar lib/jars/jinput.jar lib/jars/lwjgl.jar lib/jars/izma.jar lib/jars/slick.jar
+
+
