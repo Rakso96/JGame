@@ -56,19 +56,18 @@ public class KeypressHandler {
 		//If the up key is pressed move the player up
 		if(moveUp == true){
 			player.playerMovingUp();
-			enemy.enemyMovingUp(); /////////////////////////////////////////////////
 		}
 		//If the down key is pressed move the player down
 		if(moveDown == true){
 			player.playerMovingDown();
-			enemy.enemyMovingDown();//////////////////////////////////////////////////
 		}
 		
 		
 		//Updates the ball (The velocity etc changes)
 		ball.updateBall();
+		
 		//Updates the enemy with the balls position so he knows where to go
-		enemy.update(ball.getX(), ball.getY());
+		enemy.update(ball.getCenter(), ball.getXVelocity());
 	}
 	
 }

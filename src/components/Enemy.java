@@ -35,8 +35,23 @@ public class Enemy {
 		coll.newCollisionRect(enemyX, enemyY, enemyWidth, enemyHeight);
 	}
 	
-	public void update(int ballX, int ballY){
-		
+	public void update(int ballCenter, float ballVelocityX){
+		if(ballVelocityX > 0){ //Ball is coming towards the enemy
+			if(ballCenter < getCenter()){ //If the ball is higher up on the screen than the enemy paddle
+				enemyMovingUp();
+			}
+			else if(ballCenter > getCenter()){ //If the ball is lower on the screen than the enemy paddle
+				enemyMovingDown();
+			}
+		}
+		else if(ballVelocityX < 0){ //Ball is going the opposite direction of the enemy paddle
+			if(getCenter() < GameFrame.HEIGHT / 2){ //If the paddle is higher up than the center of the screen move down
+				enemyMovingDown();
+			}
+			else if(getCenter() > GameFrame.HEIGHT / 2){ //If the paddle is lower down than the c enter of the screen move up
+				enemyMovingUp();
+			}
+		}
 	}
 	
 	//The enemy is moving up

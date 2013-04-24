@@ -19,16 +19,16 @@ public class Ball {
 	
 	public static final int MAXVELY = 8; //The maximum velocity for the Y coordinate
 	public static final int MINVELY = -8; //The minimum velocity for the Y coordinate
-	public static final int velocityX = 5;  //The velocity for the X coordinate
-	public static int velocityY; //The velocity for the Y coordinate, Is not given a number since it will change all the time
 	public static final float velReducer = 0.1f;
 	
 	Collision coll; //The class used to check for collisions
 	Rectangle collisionRectangle; //Rectangle used to check for collisions
 	
-	//Temporary variables
-	public static float velocityXTemp = -8; //Negative 4 makes the ball start moving towards the player
-	public static float velocityYTemp = 0; //Ball Y velocity makes it stay in center of screen in the start
+	public static float velocityXTemp = -8; //Negative 8 makes the ball start moving towards the player
+	public static float velocityYTemp = 1; //Ball Y velocity makes it stay in center of screen in the start
+	
+	private static int enemyPoints; //Keep track of the AI enemy's score
+	private static int playerPoints; //Keep track of the players score
 	
 	public Ball(){
 		initBallRect();
@@ -46,15 +46,12 @@ public class Ball {
 		switch(coll.checkBoundariesCollision()){
 		case 1: 
 			//The Enemy scored a point (AI enemy)
-			//TEMP CODE///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			reverseX();
+			enemyScored();
 			break;
 		
 		case 2: 
 			//The player scored a point
-			
-			//TEMP CODE///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			reverseX();
+			playerScored();
 			break;
 			
 		case 3:
@@ -92,7 +89,7 @@ public class Ball {
 			reverseX(); //Reverses the X velocity
 			
 			//Emulates the effect of ball moving up if it hits above the center of the paddle vice versa
-			velocityYTemp = ((getCenter() - Player.getCenter()) * velReducer);
+			velocityYTemp = ((getCenter() - Enemy.getCenter()) * velReducer);
 		}
 		
 		if(velocityYTemp < MINVELY){ //If the velocity Y is less than the minimum set it to the minimum
@@ -101,9 +98,17 @@ public class Ball {
 		else if(velocityYTemp > MAXVELY){ //If the velocity Y is greater than the maximum set it to the maximum
 			velocityYTemp = MAXVELY;
 		}
+		else if(velocityYTemp == 0){
+			velocityYTemp = velocityYTemp + 0.5f + velocityYTemp * 5;
+		}
+		System.out.println("Ball velocity:" + velocityYTemp);
+		System.out.println("Ball cordinate:" + ballY);;
 	}
 	
 	public static void Draw(Texture ball){
+		//Draw the score for the player
+		ScoreHolder.DrawText(20, 0, "Player Score: " + playerPoints);
+		ScoreHolder.DrawText(GameFrame.WIDTH - 200, 0, "Enemy Score: " + enemyPoints);
 		//Binds the player texture
 		ball.bind();
 				
@@ -146,6 +151,10 @@ public class Ball {
 		return ballX;
 	}
 	
+	public float getXVelocity(){
+		return velocityXTemp;
+	}
+	
 	//Method that returns the balls Y coordinate
 	public int getY(){
 		return ballY;
@@ -155,5 +164,23 @@ public class Ball {
 	public int getCenter(){
 		ballCenter = ballY + ballHeight / 2;
 		return ballCenter;
+	}
+	
+	//Method to handle what happens if the player scores a points
+	public void playerScored(){
+		playerPoints++;
+		ballX = GameFrame.WIDTH / 2 - ballWidth / 2; //Place the ball in the middle of the screen
+		ballY = GameFrame.HEIGHT / 2 - ballHeight / 2; // Place the ball in the middle of the screen
+		velocityXTemp = -8; //Make the ball go towards the player after he scored
+		velocityYTemp = 1; //Makes the ball go down right away so u cannot abuse the infinite way of the ball bounce back and forth with AI
+	}
+	
+	//Method to handle what happens if the enemy AI scores a points
+	public void enemyScored(){
+		enemyPoints++;
+		ballX = GameFrame.WIDTH / 2 - ballWidth / 2; //Place the ball in the middle of the screen
+		ballY = GameFrame.HEIGHT / 2 - ballHeight / 2; //Place the ball in the middle of the screen
+		velocityXTemp = 8; //Makes the ball go towards the enemy AI after he scored
+		velocityYTemp = 1; //Makes the ball go down right away so u cannot abuse the infinite way of the ball bounce back and forth with AI
 	}
 }

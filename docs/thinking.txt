@@ -9,3 +9,10 @@ Create variable to tone down the outcome of center of player subtracted by cente
 float tuner = 0,05; ~ 
 
 BallVelocityY = (Player.getCenter() - ball.getCenter) * tuner;
+
+
+Draw score:
+
+In the ball class add two methods one for playerPoint and one for enemyPoint()
+inside the method make a int go ++ and then a boolean set to true 
+in the Draw method of the ball go if(enemyScore == true) draw EnemyScore: enemyInt

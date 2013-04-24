@@ -4,6 +4,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import components.ScoreHolder;
+
 import engine.KeypressHandler;
 import gfx.Renderer;
 
@@ -18,6 +20,7 @@ public class GameFrame {
 	//The class that we call to update for keypresses
 	KeypressHandler keyHandler = new KeypressHandler();
 	Renderer renderer = new Renderer();
+	ScoreHolder scoreHolder = new ScoreHolder();
 	
 	
 	//Constructor
@@ -36,9 +39,10 @@ public class GameFrame {
 			
 		}
 		
-		//Initialize the key Handler and whats connected with the keyhandler
+		//Initialize the key Handler and what's connected with the keyhandler
 		keyHandler.initKeyHandler();
 		renderer.initRenderer();
+		scoreHolder.LoadFont();
 	}
 	
 	//Updates the game Frame
@@ -47,7 +51,7 @@ public class GameFrame {
 			closeGame();
 		}	
 		
-		//Update for keypresses
+		//Update for key presses
 		keyHandler.update();
 		
 		//Update the renderer that is supposed to draw everything to the screen
