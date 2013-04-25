@@ -101,8 +101,6 @@ public class Ball {
 		else if(velocityYTemp == 0){
 			velocityYTemp = velocityYTemp + 0.5f + velocityYTemp * 5;
 		}
-		System.out.println("Ball velocity:" + velocityYTemp);
-		System.out.println("Ball cordinate:" + ballY);;
 	}
 	
 	public static void Draw(Texture ball){

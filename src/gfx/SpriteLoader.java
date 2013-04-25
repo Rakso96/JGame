@@ -14,7 +14,6 @@ public class SpriteLoader {
 		try{
 			sprite = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(path));
 		}catch(IOException e){
-			
 		}
 	}
 	

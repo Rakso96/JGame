@@ -11,6 +11,7 @@ public class ScoreHolder {
 	
 	
 	static TrueTypeFont font;
+	Font fontLoad;
 	
 	public ScoreHolder(){
 		
@@ -20,7 +21,7 @@ public class ScoreHolder {
 		try {
 			InputStream inputStream	= ResourceLoader.getResourceAsStream("res/visitorFont.ttf");
 	 
-			Font fontLoad = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+			fontLoad = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			fontLoad = fontLoad.deriveFont(24f); // set font size
 			font = new TrueTypeFont(fontLoad, false);
 	 

@@ -5,6 +5,7 @@ import org.newdawn.slick.opengl.Texture;
 import components.Ball;
 import components.Enemy;
 import components.Player;
+import components.ScoreHolder;
 import engine.GameFrame;
 
 public class Renderer {
@@ -17,7 +18,6 @@ public class Renderer {
 	private String pathPlayer = "res/PaddleFinished.png";
 	private String pathBall = "res/BallFinished.png";
 	private String pathEnemy = "res/EnemyFinished.png";
-	
 	public Renderer(){
 		
 	}
@@ -51,7 +51,12 @@ public class Renderer {
 	public void update(){
 		//Cleans the screen from previous draws.
 		GL11.glClear( GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT );
-		
+		if(GameFrame.mainMenu == true){
+			ScoreHolder.DrawText(GameFrame.WIDTH / 2 - 90, GameFrame.HEIGHT / 2 - 150, "Pong Rebirth");
+			ScoreHolder.DrawText(GameFrame.WIDTH / 2 - 140, GameFrame.HEIGHT / 2 - 50, "Press ENTER to Start!");
+		}
+		if(GameFrame.mainMenu == false){
+			
 		//Draws the player to the screen
 		Player.Draw(player);
 		
@@ -60,5 +65,6 @@ public class Renderer {
 		
 		//Draws the ball to the screen
 		Ball.Draw(ball);
+		}
 	}
 }

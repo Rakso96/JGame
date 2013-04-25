@@ -64,7 +64,7 @@ public class Player {
 			GL11.glTexCoord2f(0, 0);  //Top left
 			GL11.glVertex2f(playerX, playerY);
 	
-			GL11.glTexCoord2f(1,0);    //Top right
+			GL11.glTexCoord2f(1, 0);    //Top right
 			GL11.glVertex2f(playerX + playerWidth, playerY);
 	
 			GL11.glTexCoord2f(1, 1); //Bottom right
