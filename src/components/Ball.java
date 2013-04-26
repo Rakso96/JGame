@@ -1,12 +1,18 @@
 package components;
 
+import java.io.IOException;
+
 import engine.Collision;
 import engine.GameFrame;
 import gfx.SpriteLoader;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.Rectangle;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.openal.SoundStore;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class Ball {
 	
@@ -30,8 +36,21 @@ public class Ball {
 	private static int enemyPoints; //Keep track of the AI enemy's score
 	private static int playerPoints; //Keep track of the players score
 	
+	private AudioLoader soundLoader;
+	private Audio waveSoundHit;
+	private Audio waveEnemyScored;
+	private Audio wavePlayerScored;
+	
 	public Ball(){
 		initBallRect();
+		
+		try {
+			waveSoundHit = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/hit.wav"));
+			waveEnemyScored = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/loose.wav"));
+			wavePlayerScored = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/win.wav"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//Initiates the ball rectangle used for collisions
@@ -47,11 +66,13 @@ public class Ball {
 		case 1: 
 			//The Enemy scored a point (AI enemy)
 			enemyScored();
+			playSoundEnemyScored();
 			break;
 		
 		case 2: 
 			//The player scored a point
 			playerScored();
+			playSoundPlayerScored();
 			break;
 			
 		case 3:
@@ -69,6 +90,7 @@ public class Ball {
 		
 		ballX += velocityXTemp; //Adds the velocity to the balls X coordinate
 		ballY += velocityYTemp; //Adds the velocity to the balls Y coordinate
+		SoundStore.get().poll(0);
 	}
 	
 	//Method to check if the ball collided with a paddle
@@ -78,7 +100,7 @@ public class Ball {
 		rect = Player.getPlayerCollisionRect();
 		if(coll.checkCollision(rect) == true){
 			reverseX(); //Reverses the X velocity
-			
+			playSoundHit();
 			//Emulates the effect of ball moving up if it hits above the center of the paddle vice versa
 			velocityYTemp = ((getCenter() - Player.getCenter()) * velReducer);
 		}
@@ -87,7 +109,7 @@ public class Ball {
 		rect = Enemy.getEnemyCollisionRect();
 		if(coll.checkCollision(rect) == true){
 			reverseX(); //Reverses the X velocity
-			
+			playSoundHit();
 			//Emulates the effect of ball moving up if it hits above the center of the paddle vice versa
 			velocityYTemp = ((getCenter() - Enemy.getCenter()) * velReducer);
 		}
@@ -180,5 +202,15 @@ public class Ball {
 		ballY = GameFrame.HEIGHT / 2 - ballHeight / 2; //Place the ball in the middle of the screen
 		velocityXTemp = 8; //Makes the ball go towards the enemy AI after he scored
 		velocityYTemp = 1; //Makes the ball go down right away so u cannot abuse the infinite way of the ball bounce back and forth with AI
+	}
+	
+	public void playSoundHit(){
+		waveSoundHit.playAsSoundEffect(1.0f, 1.0f, false);
+	}
+	public void playSoundPlayerScored(){
+		wavePlayerScored.playAsSoundEffect(1.0f, 1.0f, false);
+	}
+	public void playSoundEnemyScored(){
+		waveEnemyScored.playAsSoundEffect(1.0f, 1.0f, false);
 	}
 }
